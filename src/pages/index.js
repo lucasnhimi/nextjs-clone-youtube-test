@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from '../components/Layout';
+import Layout from 'src/components/Layout';
 
 export default function Home() {
-  return <Layout title="YouTube" />;
+  return <Layout title="YouTube">teste</Layout>;
 }
