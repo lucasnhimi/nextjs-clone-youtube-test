@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
   makeStyles,
   Hidden,
@@ -36,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
     height: 64,
   },
   listItem: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(0.5),
+    paddingTop: 6,
+    paddingBottom: 6,
     paddingLeft: theme.spacing(3),
   },
   listItemText: {
@@ -46,47 +47,77 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const primaryMenu = [
-  { id: 1, label: 'Início', icon: <HomeIcon /> },
-  { id: 2, label: 'Em alta', icon: <Whatshot /> },
-  { id: 3, label: 'Inscrições', icon: <Subscriptions /> },
+  { id: 1, label: 'Início', path: '/', icon: HomeIcon },
+  { id: 2, label: 'Em alta', path: '/trendding', icon: Whatshot },
+  {
+    id: 3,
+    label: 'Inscrições',
+    path: 'subscriptions',
+    icon: Subscriptions,
+  },
 ];
 
 const secondaryManu = [
-  { id: 1, label: 'Biblioteca', icon: <VideoLibrary /> },
-  { id: 2, label: 'Histórico', icon: <History /> },
+  { id: 1, label: 'Biblioteca', icon: VideoLibrary },
+  { id: 2, label: 'Histórico', icon: History },
 ];
 
 const NavBar = () => {
   const classes = useStyles();
+  const router = useRouter();
+
+  const isSelected = (item) => {
+    return router.pathname === item.path;
+  };
 
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
       <List>
-        {primaryMenu.map((item) => (
-          <ListItem button classes={{ root: classes.listItem }}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText
-              classes={{
-                primary: classes.listItemText,
-              }}
-              primary={item.label}
-            />
-          </ListItem>
-        ))}
+        {primaryMenu.map((item) => {
+          const Icon = item.icon;
+          return (
+            <ListItem
+              key={item.id}
+              button
+              classes={{ root: classes.listItem }}
+              selected={isSelected(item)}
+            >
+              <ListItemIcon>
+                <Icon style={{ color: isSelected(item) && '#f44336' }} />
+              </ListItemIcon>
+              <ListItemText
+                classes={{
+                  primary: classes.listItemText,
+                }}
+                primary={item.label}
+              />
+            </ListItem>
+          );
+        })}
       </List>
       <Divider />
       <List>
-        {secondaryManu.map((item) => (
-          <ListItem button classes={{ root: classes.listItem }}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText
-              classes={{
-                primary: classes.listItemText,
-              }}
-              primary={item.label}
-            />
-          </ListItem>
-        ))}
+        {secondaryManu.map((item) => {
+          const Icon = item.icon;
+          return (
+            <ListItem
+              key={item.id}
+              button
+              classes={{ root: classes.listItem }}
+              selected={isSelected(item)}
+            >
+              <ListItemIcon>
+                <Icon style={{ color: isSelected(item) && '#f44336' }} />
+              </ListItemIcon>
+              <ListItemText
+                classes={{
+                  primary: classes.listItemText,
+                }}
+                primary={item.label}
+              />
+            </ListItem>
+          );
+        })}
       </List>
       <Divider />
       <Box mx={4} my={2}>
