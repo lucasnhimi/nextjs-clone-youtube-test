@@ -1,5 +1,8 @@
 import { Box, Typography, Avatar, makeStyles } from '@material-ui/core';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 const useStyles = makeStyles(() => ({
   caption: {
@@ -36,7 +39,7 @@ function VideoCard({ item }) {
             {item.channel}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            {`${item.views} • ${moment(item.date).fromNow()}`}
+            {`${item.views} • ${dayjs(item.date).fromNow()}`}
           </Typography>
         </Box>
       </Box>
