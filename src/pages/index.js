@@ -27,7 +27,7 @@ export async function getStaticProps() {
         'FEED DO USUÁRIO | Criando uma Rede Social com React.js e .NET Core #29',
       channel: 'Lucas Nhimi',
       views: '11 mi de visualizações',
-      date: '01/11/2020',
+      date: Date.now(),
       avatar:
         'https://yt3.ggpht.com/ytc/AAUvwnjsAqYw8F72hHnk-aZsOIJG3_Yf_AjF4cfekZ-A=s176-c-k-c0x00ffffff-no-rj',
       thumb:

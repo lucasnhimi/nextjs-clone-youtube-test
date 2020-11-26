@@ -36,7 +36,7 @@ function VideoCard({ item }) {
             {item.channel}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            {`${item.views} • ${moment(item.date).locale('pt-br').fromNow()}`}
+            {`${item.views} • ${moment(item.date).fromNow()}`}
           </Typography>
         </Box>
       </Box>
