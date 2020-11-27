@@ -1,19 +1,21 @@
-import { connectToDatabase } from 'src/utils/mongodb';
+// import { connectToDatabase } from 'src/utils/mongodb';
+import nextConnect from 'next-connect';
+import upload from 'src/utils/upload';
 
-export default async function videoHandler(req, res) {
-  const { body, method } = req;
-  const { db } = await connectToDatabase();
-  const collection = await db.collection('videos').find().toArray();
+const handler = nextConnect();
 
-  switch (method) {
-    case 'GET':
-      res.status(200).json({ collection });
-      break;
-    case 'PUT':
-      res.status(200).json({ body });
-      break;
-    default:
-      res.setHeader('Allow', ['PUT']);
-      res.status(405).end(`Method ${method} Not Allowed`);
-  }
-}
+handler.use(upload.single('file'));
+
+handler.post(async (req, res) => {
+  console.log(req.file);
+  console.log(req.body);
+  return res.status(200).json({ imageUrl: req.file.location });
+});
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+export default handler;

@@ -10,9 +10,14 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "aws-sdk": "^2.799.0",
+    "crypto": "^1.0.1",
     "dayjs": "^1.9.6",
     "mongodb": "^3.6.3",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "next": "10.0.2",
+    "next-connect": "^0.9.1",
     "react": "17.0.1",
     "react-dom": "17.0.1"
   },
