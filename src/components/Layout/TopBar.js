@@ -8,6 +8,7 @@ import {
   Paper,
   InputBase,
   IconButton,
+  Avatar,
 } from '@material-ui/core';
 import RouterLink from 'next/link';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -16,7 +17,7 @@ import Apps from '@material-ui/icons/Apps';
 import MoreVert from '@material-ui/icons/MoreVert';
 import VideoCall from '@material-ui/icons/VideoCall';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { signIn } from 'next-auth/client';
+import { useSession, signIn } from 'next-auth/client';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     height: 32,
     width: 32,
-    marginRight: theme.spacing(1),
   },
   popover: {
     width: 200,
@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TopBar = ({ className, ...rest }) => {
   const classes = useStyles();
+  const [session] = useSession();
 
   return (
     <AppBar className={classes.root} color="default" {...rest}>
@@ -105,7 +106,7 @@ const TopBar = ({ className, ...rest }) => {
             </Paper>
           </Box>
         </Hidden>
-        <Box>
+        <Box display="flex">
           <IconButton className={classes.icons}>
             <VideoCall />
           </IconButton>
@@ -115,15 +116,25 @@ const TopBar = ({ className, ...rest }) => {
           <IconButton className={classes.icons}>
             <MoreVert />
           </IconButton>
-          <Button
-            color="secondary"
-            component="a"
-            variant="outlined"
-            startIcon={<AccountCircle />}
-            onClick={() => signIn('google')}
-          >
-            Fazer Login
-          </Button>
+          {!session ? (
+            <Button
+              color="secondary"
+              component="a"
+              variant="outlined"
+              startIcon={<AccountCircle />}
+              onClick={() => signIn('google')}
+            >
+              Fazer Login
+            </Button>
+          ) : (
+            <Box display="flex" alignItems="center">
+              <Avatar
+                alt="User"
+                className={classes.avatar}
+                src={session?.user?.image}
+              />
+            </Box>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

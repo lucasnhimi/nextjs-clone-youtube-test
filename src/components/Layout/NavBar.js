@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import {
   makeStyles,
@@ -8,6 +9,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  ListSubheader,
+  Avatar,
   Divider,
   Typography,
   Button,
@@ -21,6 +24,8 @@ import History from '@material-ui/icons/History';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
+import { useSession } from 'next-auth/client';
+
 const useStyles = makeStyles((theme) => ({
   mobileDrawer: {
     width: 240,
@@ -33,8 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     cursor: 'pointer',
-    width: 64,
-    height: 64,
+    width: 24,
+    height: 24,
   },
   listItem: {
     paddingTop: 6,
@@ -65,6 +70,17 @@ const secondaryManu = [
 const NavBar = () => {
   const classes = useStyles();
   const router = useRouter();
+  const [session] = useSession();
+  const [subscriptions, setSubscriptions] = useState([
+    { id: 1, name: 'Canal 1' },
+    { id: 2, name: 'Canal 2' },
+    { id: 3, name: 'Canal 3' },
+    { id: 4, name: 'Canal 4' },
+    { id: 5, name: 'Canal 5' },
+    { id: 6, name: 'Canal 6' },
+    { id: 7, name: 'Canal 7' },
+    { id: 8, name: 'Canal 8' },
+  ]);
 
   const isSelected = (item) => {
     return router.pathname === item.path;
@@ -120,19 +136,50 @@ const NavBar = () => {
         })}
       </List>
       <Divider />
-      <Box mx={4} my={2}>
-        <Typography variant="body2">
-          Faça login para curtur vídeos, comentar e se inscrever.
-        </Typography>
-        <Box mt={2}>
-          <Button
-            variant="outlined"
-            color="secondary"
-            startIcon={<AccountCircle />}
+      <Box>
+        {!session ? (
+          <Box mx={4} my={2}>
+            <Typography variant="body2">
+              Faça login para curtur vídeos, comentar e se inscrever.
+            </Typography>
+            <Box mt={2}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                startIcon={<AccountCircle />}
+              >
+                Fazer login
+              </Button>
+            </Box>
+          </Box>
+        ) : (
+          <List
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                INSCRIÇÕES
+              </ListSubheader>
+            }
           >
-            Fazer login
-          </Button>
-        </Box>
+            {subscriptions.map((item) => (
+              <ListItem
+                key={item.id}
+                button
+                classes={{ root: classes.listItem }}
+                selected={isSelected(item)}
+              >
+                <ListItemIcon>
+                  <Avatar className={classes.avatar}>H</Avatar>
+                </ListItemIcon>
+                <ListItemText
+                  classes={{
+                    primary: classes.listItemText,
+                  }}
+                  primary={item.name}
+                />
+              </ListItem>
+            ))}
+          </List>
+        )}
       </Box>
       <Divider />
     </Box>
