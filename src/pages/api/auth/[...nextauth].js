@@ -12,6 +12,36 @@ const options = {
     }),
     // ...add more providers here
   ],
+
+  secret: process.env.JWT_SECRET,
+
+  session: {
+    jwt: true,
+  },
+
+  jwt: {
+    secret: process.env.JWT_SECRET,
+  },
+
+  callbacks: {
+    signIn: async (user, account, profile) => {
+      return Promise.resolve(true);
+    },
+    session: async (session, user) => {
+      // eslint-disable-next-line no-param-reassign
+      session.user.uid = user.uid;
+      return Promise.resolve(session);
+    },
+
+    jwt: async (token, user, account, profile, isNewUser) => {
+      if (user) {
+        // eslint-disable-next-line no-param-reassign
+        token.uid = user.id;
+      }
+      return Promise.resolve(token);
+    },
+  },
+
   site: process.env.SITE || 'http://localhost:3000',
 
   // A database is optional, but required to persist accounts in a database

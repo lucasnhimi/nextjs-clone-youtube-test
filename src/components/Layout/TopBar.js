@@ -17,7 +17,7 @@ import Apps from '@material-ui/icons/Apps';
 import MoreVert from '@material-ui/icons/MoreVert';
 import VideoCall from '@material-ui/icons/VideoCall';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { useSession, signIn } from 'next-auth/client';
+import { useSession, signIn, signOut } from 'next-auth/client';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -129,6 +129,7 @@ const TopBar = ({ className, ...rest }) => {
           ) : (
             <Box display="flex" alignItems="center">
               <Avatar
+                onClick={() => signOut()}
                 alt="User"
                 className={classes.avatar}
                 src={session?.user?.image}

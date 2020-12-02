@@ -22,7 +22,7 @@ function VideoCard({ item }) {
       <img style={{ width: '100%' }} alt={item.title} src={item.thumb} />
       <Box display="flex" mt={1}>
         <Box mr={1}>
-          <Avatar alt="Author" src={item.avatar}>
+          <Avatar alt={item.authorName} src={item.authorAvatar}>
             SS
           </Avatar>
         </Box>
@@ -39,7 +39,7 @@ function VideoCard({ item }) {
             {item.channel}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            {`${item.views} • ${dayjs(item.date).fromNow()}`}
+            {`${item.views} • ${dayjs(item.updatedAt).fromNow()}`}
           </Typography>
         </Box>
       </Box>
