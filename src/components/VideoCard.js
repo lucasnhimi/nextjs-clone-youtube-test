@@ -1,6 +1,7 @@
 import { Box, Typography, Avatar, makeStyles } from '@material-ui/core';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { useRouter } from 'next/router';
 
 dayjs.extend(relativeTime);
 
@@ -16,10 +17,21 @@ const useStyles = makeStyles(() => ({
 
 function VideoCard({ item }) {
   const classes = useStyles();
+  const router = useRouter();
 
   return (
     <Box>
-      <img style={{ width: '100%' }} alt={item.title} src={item.thumb} />
+      <img
+        onClick={() =>
+          router.push({
+            pathname: '/video/[id]',
+            query: { id: item._id },
+          })
+        }
+        style={{ width: '100%' }}
+        alt={item.title}
+        src={item.thumb}
+      />
       <Box display="flex" mt={1}>
         <Box mr={1}>
           <Avatar alt={item.authorName} src={item.authorAvatar}>

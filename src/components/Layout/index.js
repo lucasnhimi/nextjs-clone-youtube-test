@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Layout = ({ children, title = 'Tips Brazil' }) => {
   const classes = useStyles();
+
   return (
     <div>
       <Head>
