@@ -17,7 +17,11 @@ import Apps from '@material-ui/icons/Apps';
 import MoreVert from '@material-ui/icons/MoreVert';
 import VideoCall from '@material-ui/icons/VideoCall';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { useSession, signIn, signOut } from 'next-auth/client';
+import useSettings from 'src/hooks/useSettings';
+import { THEMES } from 'src/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
 const TopBar = ({ className, ...rest }) => {
   const classes = useStyles();
   const [session] = useSession();
+  const { settings, saveSettings } = useSettings();
 
   return (
     <AppBar className={classes.root} color="default" {...rest}>
@@ -84,7 +89,11 @@ const TopBar = ({ className, ...rest }) => {
             <img
               className={classes.logo}
               alt="Logo"
-              src="/new-youtube-logo.svg"
+              src={
+                settings.theme === THEMES.DARK
+                  ? '/branco.png'
+                  : '/new-youtube-logo.svg'
+              }
             />
           </RouterLink>
         </Box>
@@ -107,6 +116,17 @@ const TopBar = ({ className, ...rest }) => {
           </Box>
         </Hidden>
         <Box display="flex">
+          <IconButton className={classes.icons}>
+            {settings.theme === THEMES.DARK ? (
+              <Brightness7Icon
+                onClick={() => saveSettings({ theme: THEMES.LIGHT })}
+              />
+            ) : (
+              <Brightness4Icon
+                onClick={() => saveSettings({ theme: THEMES.DARK })}
+              />
+            )}
+          </IconButton>
           <IconButton className={classes.icons}>
             <VideoCall />
           </IconButton>

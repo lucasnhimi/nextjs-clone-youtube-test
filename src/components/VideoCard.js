@@ -51,7 +51,7 @@ function VideoCard({ item }) {
             {item.title}
           </Typography>
           <Typography display="block" variant="body2" color="textSecondary">
-            {item.channel}
+            {item.authorName}
           </Typography>
           <Typography variant="body2" color="textSecondary">
             {`${item.views} • ${dayjs(item.updatedAt).fromNow()}`}
