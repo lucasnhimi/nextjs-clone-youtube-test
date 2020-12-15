@@ -10,7 +10,7 @@ function Home({ data }) {
       <Box p={2}>
         <Grid container spacing={4}>
           {data.map((item) => (
-            <Grid key={item._id} item xl={2} lg={3} md={4} sm={6} xs={12}>
+            <Grid key={item._id} item xl={3} lg={4} md={4} sm={6} xs={12}>
               <VideoCard item={item} />
             </Grid>
           ))}
@@ -24,19 +24,20 @@ export async function getStaticProps() {
   // const data = [
   //   {
   //     id: 1,
-  //     title:
-  //       'FEED DO USUÁRIO | Criando uma Rede Social com React.js e .NET Core #29',
-  //     channel: 'Lucas Nhimi',
-  //     views: '11 mi de visualizações',
-  //     date: Date.now(),
-  //     avatar:
-  //       'https://yt3.ggpht.com/ytc/AAUvwnjsAqYw8F72hHnk-aZsOIJG3_Yf_AjF4cfekZ-A=s176-c-k-c0x00ffffff-no-rj',
-  //     thumb:
-  //       'https://i.ytimg.com/vi/eg9yLyb8mdM/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLBjDZp2thAhoXe4VnvcH47CFQYUoQ',
+  //     title: 'FEED DO USUÁRIO | Criando uma Rede Social com React.js e .NET Core #29',
+  //     authorId: 1,
+  //     authorName: 'Lucas Nhimi',
+  //     authorAvatar: 'avatarUrl',
+  //     views: 10,
+  //     thumb: 'url',
+  //     videoUrl: 'url',
+  //     updatedAt: new Date(),
   //   },
   // ];
 
   const data = await getVideos();
+  // const teste = data.json();
+  // console.log(teste);
   return {
     props: {
       data: JSON.parse(JSON.stringify(data)),
